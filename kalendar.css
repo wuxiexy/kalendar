@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font: 0/1 '微软雅黑';
+    vertical-align: middle;
+}
+
+input {
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    margin: 50px;
+}
+
+.Kalendar-popop {
+    width: 250px;
+    height: 220px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+
+    position: absolute;
+    background-color: #fff;
+
+    top: 80px;
+    left: 50px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Kalendar-popop span {
+    display: inline-block;
+    font-size: 12px;
+}
+
+
+/* header */
+.kp-header {
+    text-align: center;
+    border: 1px solid #eee;
+}
+.kp-header > div {
+    display: inline-block;
+    position: absolute;
+    height: 30px;
+    line-height: 30px;
+
+}
+.kp-header span {
+    padding: 0 3px;
+    height: 20px;
+    line-height: 18px;
+    cursor: pointer;
+}
+.kp-header span:hover {
+    background-color: #ccc;
+}
+.kp-h-l {
+    left: 0;
+}
+.kp-h-c {
+    position: relative !important;
+}
+.kp-h-r {
+    right: 0;
+}
+
+
+

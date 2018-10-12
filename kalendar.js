@@ -10,18 +10,33 @@
 
 
 // param: el 元素的 id
-function Kalendar(el) {
+function Kalendar(el, option) {
 
     var doc = document
         , win = window
         , i
         , len
         , current
-        , container = doc.getElementById('Kalendar-popop')
+        , container = doc.getElementsByClassName('Kalendar-popop')[0]
         , ele = doc.getElementById(el)
+        /*, opt = {
+            width: '300px'
+        }*/
     ;
 
-    
+
+
+
+
+    if (container){
+        console.log(1);
+    } else {
+        // 还没有创建
+        container = doc.createElement('div');
+        container.className = 'Kalendar-popop';
+        console.log(2);
+        doc.body.appendChild(container);
+    }
 
 
 
