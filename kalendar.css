@@ -8,6 +8,10 @@
     vertical-align: middle;
 }
 
+html {
+    font-size: 16px;
+}
+
 input {
     width: 100px;
     height: 30px;
@@ -68,6 +72,57 @@ input {
 .kp-h-r {
     right: 0;
 }
+
+
+
+
+
+
+
+/* content header */
+.kp-c-h {
+    padding: .3125rem 0;
+}
+
+.kp-c-h span
+, .kp-container .kp-col
+{
+    display: inline-block;
+    width: 14.2857%;
+    text-align: center;
+}
+
+
+
+/* content content */
+.kp-container {
+
+}
+.kp-container {
+
+}
+.kp-container .kp-row {
+    margin-top: .3125rem;
+}
+.kp-container .kp-col {
+
+}
+.kp-col .kp-date {
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    /*text-align: center;*/
+    cursor: pointer;
+}
+.kp-date:hover {
+    background-color: #EBF1FB;
+}
+.kp-date:active {
+    background-color: #3993F8;
+    color: #fff;
+}
+
+
 
 
 
