@@ -21,7 +21,7 @@ input {
 
 .Kalendar-popop {
     width: 250px;
-    height: 220px;
+    /*height: 220px;*/
     border: 1px solid #eee;
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
 
@@ -121,6 +121,21 @@ input {
     background-color: #3993F8;
     color: #fff;
 }
+
+
+
+
+
+
+
+/* 底部 */
+.kp-footer {
+
+    height: 30px;
+    font-size: 15px;
+}
+
+
 
 
 

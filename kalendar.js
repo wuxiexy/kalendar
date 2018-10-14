@@ -17,13 +17,34 @@ function Kalendar(el, option) {
         , i
         , len
         , current
+        , calendars = {}
+        , calendarStr = ''
+        , currentCalendar = ''
+
+        , d = new Date()
+        , y = d.getMonth()+1
+        , m = d.getFullYear()
+        , UTCDate = d.getUTCDate()
+
+
         , container = doc.getElementsByClassName('Kalendar-popop')[0]
         , ele = doc.getElementById(el)
         /*, opt = {
             width: '300px'
         }*/
+
     ;
 
+    console.log(y, m, UTCDate);
+
+    // 绘制日历
+    function drawCalendar(d) {
+        currentCalendar = calendars[d];
+        if(!calendars[d]){
+            return calendarStr;
+        }
+        return currentCalendar;
+    }
 
 
 
@@ -37,6 +58,7 @@ function Kalendar(el, option) {
         console.log(2);
         doc.body.appendChild(container);
     }
+
 
 
 
