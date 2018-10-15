@@ -105,7 +105,7 @@ input {
     margin-top: .3125rem;
 }
 .kp-container .kp-col {
-
+    margin-top: .3125rem;
 }
 .kp-col .kp-date {
     width: 1.5rem;
@@ -121,6 +121,7 @@ input {
     background-color: #3993F8;
     color: #fff;
 }
+
 
 
 
