@@ -107,7 +107,7 @@ input {
 .kp-container .kp-col {
     margin-top: .3125rem;
 }
-.kp-col .kp-date {
+.kp-col span {
     width: 1.5rem;
     height: 1.5rem;
     line-height: 1.5rem;
@@ -121,6 +121,13 @@ input {
     background-color: #3993F8;
     color: #fff;
 }
+
+.prov-mouth-day,
+.next-mouth-day
+{
+    color: #ccc;
+}
+
 
 
 
