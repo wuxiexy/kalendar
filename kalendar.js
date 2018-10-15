@@ -33,7 +33,7 @@ function Kalendar(el, option) {
         , currentProvMonth = ''                             // 上个月
         , provMonthLastDay = ''
         , currentNextMonth = ''                             // 下个个月
-        // , nextMonth = ''                             // 下个个月
+        , nextMonthNum = ''                                 // 下个月的有多少显示的
 
         , currentMonthFirstDay = ''                 // 当前月份的第一天，可用于处理1号是礼拜几
         , currentMonthDayCount = false
@@ -69,7 +69,7 @@ function Kalendar(el, option) {
     // 绘制日历
     // number
     function drawCalendar(year, month) {
-
+        console.log(year+'年'+month);
         currentCalendar = calendars[year+month];
         if(currentCalendar) {
             return currentCalendar;
@@ -97,18 +97,20 @@ function Kalendar(el, option) {
         current = 1;
         nextMouth = 1;
         var num = currentMonthFirstDay + currentMonthDayCount;
+        nextMonthNum = num%7!==0 ? 7-num%7 : 0;
         console.log(num);
         for (i = 0; i < 42; i++) {
             if (currentMonthFirstDay > -1) {
                 str += '<div class="kp-col"><span class="prov-mouth-day">' + (provMonthLastDay - currentMonthFirstDay--) + '</span></div>'
             } else if (current < currentMonthDayCount) {
                 str += '<div class="kp-col"><span class="kp-date">' + current++ + '</span></div>'
-            } else {
+            } else if(nextMonthNum-->0) {
                 str += '<div class="kp-col"><span class="next-mouth-day">' + nextMouth++ + '</span></div>';
                 // console.log(num<=35, num, i);
-                if (num<35&&i===34) {
+                /*if (num<=35) {
+
                     break;
-                }
+                }*/
             }
         }
         calendars[year+month] = str;
@@ -124,7 +126,9 @@ function Kalendar(el, option) {
         // console.log(1);
         // drawCalendar(y, m);
 
-        container.innerHTML = drawCalendar(2018, 10);
+        container.innerHTML = drawCalendar(y, m);
+        yearEle.innerHTML = y;
+        mouthEle.innerHTML = m;
         // console.log('======================================');
         // drawCalendar();
         // console.log('======================================');
