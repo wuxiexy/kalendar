@@ -51,12 +51,21 @@ function Kalendar(el, option) {
 
         , yearEle =  doc.getElementsByClassName('kp-h-year')[0]
         , mouthEle =  doc.getElementsByClassName('kp-h-month')[0]
+<<<<<<< HEAD
 
         // , kp-container
 
 
+=======
+        
+        // , kp-container
+        
+        
+>>>>>>> da5ac5ae7c8e51ef6b2a041ccd35bd8e644bbee2
     ;
 
+        
+        
 
 
 
@@ -107,6 +116,10 @@ function Kalendar(el, option) {
                 str += '<div class="kp-col"><span class="next-mouth-day">' + nextMouth++ + '</span></div>';
                 // console.log(num<=35, num, i);
                 /*if (num<=35) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> da5ac5ae7c8e51ef6b2a041ccd35bd8e644bbee2
                     break;
                 }*/
             }
