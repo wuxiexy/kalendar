@@ -40,6 +40,11 @@ function Kalendar(el, option) {
 
         , ele = doc.getElementById(el)
         , eleValue = ele.value
+        , eleLeft = ''
+        , eleTop = ''
+        , eleOffset = ''
+        , eleHeight = ''
+
 
         , dcm = ''
         , nextMouth = 1
@@ -92,6 +97,28 @@ function Kalendar(el, option) {
         selectTheYear = y;
         selectTheMonth = m;
     }
+
+
+
+
+    console.log(ele.offsetLeft);
+
+    function getOffsetLeftTop(obj) {
+        var ol = obj.offsetLeft
+            , ot = obj.offsetTop
+            , op = obj.offsetParent;
+        while (op) {
+            ol += op.offsetLeft;
+            ot += op.offsetTop;
+            op = op.offsetParent;
+        }
+        return [ol,ot];
+    }
+    // console.log(getOffsetLeftTop(ele));
+
+
+
+
 
 
     // 绘制日历
@@ -149,12 +176,21 @@ function Kalendar(el, option) {
 
 
     ele.addEventListener('click', function (e) {
+        that = this;
+
+        // 求得ele元素的偏移
+        eleOffset = getOffsetLeftTop(that);
+        eleLeft = eleOffset[0];
+        eleTop = eleOffset[1];
+        eleHeight = that.offsetHeight;
+
         if (wrapper) {
             wrapperStyle.display = 'block';
             container.innerHTML = drawCalendar(selectTheYear, selectTheMonth);
             yearEle.innerHTML = selectTheYear;
             mouthEle.innerHTML = selectTheMonth;
-
+            wrapperStyle.left = eleLeft+'px';
+            wrapperStyle.top = eleTop+eleHeight+'px';
         } else {
             wrapper = doc.createElement('div');
             wrapper.className = 'Kalendar-popop';
@@ -168,6 +204,9 @@ function Kalendar(el, option) {
             mouthEle = doc.getElementsByClassName('kp-h-month')[0];
             yearEle.innerHTML = selectTheYear;
             mouthEle.innerHTML = selectTheMonth;
+            wrapperStyle.left = eleLeft+'px';
+            wrapperStyle.top = eleTop+eleHeight+'px';
+
 
             doc.getElementsByClassName('next-month')[0].addEventListener('click', function (e) {
 
