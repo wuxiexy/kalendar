@@ -98,11 +98,6 @@ function Kalendar(el, option) {
         selectTheMonth = m;
     }
 
-
-
-
-    console.log(ele.offsetLeft);
-
     function getOffsetLeftTop(obj) {
         var ol = obj.offsetLeft
             , ot = obj.offsetTop
@@ -114,11 +109,6 @@ function Kalendar(el, option) {
         }
         return [ol,ot];
     }
-    // console.log(getOffsetLeftTop(ele));
-
-
-
-
 
 
     // 绘制日历
