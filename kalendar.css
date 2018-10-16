@@ -110,17 +110,44 @@ input {
 .kp-col span {
     width: 1.5rem;
     height: 1.5rem;
-    line-height: 1.5rem;
+    line-height: 1.375rem;
     /*text-align: center;*/
     cursor: pointer;
+    border: 1px solid transparent;
 }
-.kp-date:hover {
+
+.next-mouth-day,
+.prov-mouth-day
+{
+    cursor: auto !important;
+}
+
+
+
+.kp-col .kp-date:hover {
     background-color: #EBF1FB;
+    border-color: #EBF1FB;
+    color: #000;
 }
-.kp-date:active {
+
+.kp-col .kp-current,
+.kp-col .kp-current:hover
+{
+    /*color: #fff;*/
+    border-color: rgba(57,147,248,.5);
+    /*background-color: rgba(57,147,248,.5);*/
+}
+
+.kp-col .kp-date:active
+, .kp-col span[data-type='selected']
+, .kp-col span[data-type='selected']:hover
+{
     background-color: #3993F8;
+    border-color: #3993F8;
     color: #fff;
 }
+
+
 
 .prov-mouth-day,
 .next-mouth-day

@@ -4,10 +4,6 @@
 *
 * */
 
-/*;(function (w, doc) {
-}(window, document));*/
-
-
 // param: el 元素的 id
 function Kalendar(el, option) {
 
@@ -18,16 +14,17 @@ function Kalendar(el, option) {
         , current
         , calendars = {}
         , str = ''
+        , num = ''
         , currentCalendar = ''
         // , thatVeryDay = ''              // 当天
 
         , d = new Date()
         , m = d.getMonth() + 1                                // 当前月份
-        , selectTheMonth = ''                               // 选中的月份
+        , selectTheMonth = m                               // 选中的月份
         , y = d.getFullYear()                               // 当前年份
-        , selectTheYear = ''                                // 选中的年份
+        , selectTheYear = y                                // 选中的年份
         , UTCDate = d.getUTCDate()                          // 当天
-        , selectDay = ''                                    // 当前选中的日期
+        , selectTheDay = ''                                    // 当前选中的日期
 
         , currentProvMonth = ''                             // 上个月
         , provMonthLastDay = ''
@@ -38,160 +35,194 @@ function Kalendar(el, option) {
         , currentMonthDayCount = false
 
         , wrapper = doc.getElementsByClassName('Kalendar-popop')[0]
-
+        , wrapperStyle = ''
         , container = ''
 
         , ele = doc.getElementById(el)
-        /*, opt = {
-            width: '300px'
-        }*/
+        , eleValue = ele.value
 
         , dcm = ''
         , nextMouth = 1
 
-        , yearEle =  doc.getElementsByClassName('kp-h-year')[0]
-        , mouthEle =  doc.getElementsByClassName('kp-h-month')[0]
+        , yearEle = ''
+        , mouthEle = ''
 
+        , tag = ''
+        , tagText = ''
+        , day = ''
+        , tagName = ''
         // , kp-container
+        , that = ''
+        , hasSelect = false
+        , currentSelect = ''
 
-
+        , wrapperHtml = '<div class="kp-header">\n' +
+        '        <!-- 头部 -->\n' +
+        '        <div class="kp-h-l">\n' +
+        '            <span class="prov-year"><<</span><span class="prov-month"><</span>\n' +
+        '        </div>\n' +
+        '        <div class="kp-h-c">\n' +
+        '            <span class="kp-h-year" contenteditable="true"></span><span class="kp-h-month" contenteditable="true"></span>\n' +
+        '        </div>\n' +
+        '        <div class="kp-h-r">\n' +
+        '            <span class="next-month">></span><span class="next-year">>></span>\n' +
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <div class="kp-content">\n' +
+        '        <!-- 日历 -->\n' +
+        '        <div class="kp-c-h">\n' +
+        '            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>\n' +
+        '        </div>\n' +
+        '        <div class="kp-container">\n' +
+        '            <!--<div class="kp-col"><span class="kp-date">1</span></div>-->\n' +
+        '        </div>\n' +
+        '    </div>\n' +
+        '    <div class="kp-footer">\n' +
+        '        今日\n' +
+        '    </div>'
     ;
 
 
-
-
-    // console.log(y, m, UTCDate);
-    console.log(currentMonthFirstDay);
-    // console.log(y, m, UTCDate);
+    if (eleValue) {
+        eleValue = eleValue.split('-');
+        selectTheYear = y = eleValue[0];
+        selectTheMonth = m = eleValue[1];
+        selectTheDay = eleValue[2];
+    } else {
+        selectTheYear = y;
+        selectTheMonth = m;
+    }
 
 
     // 绘制日历
     // number
     function drawCalendar(year, month) {
-        console.log(year+'年'+month);
-        currentCalendar = calendars[year+month];
-        if(currentCalendar) {
-            return currentCalendar;
-        }
-
-
-        // 上个月天数
         if (month !== 1) {
             provMonthLastDay = new Date(year, month - 1, 0).getDate();
         } else {
             provMonthLastDay = new Date(year - 1, 12, 0).getDate();
         }
-        console.log('上个月天数' + provMonthLastDay);
-
-
         currentMonthDayCount = new Date(year, month, 0).getDate() + 1;      // 当月天数
-        console.log('当月天数' + currentMonthDayCount);
-
-        currentMonthFirstDay = new Date(year, month - 1).getDay()-1;        // 当月第一天/星期几
-        console.log('当月第一天/星期几' + currentMonthFirstDay);
-        console.log(currentMonthFirstDay);
-
+        currentMonthFirstDay = new Date(year, month - 1).getDay() - 1;      // 当月第一天/星期几
 
         str = '';
         current = 1;
         nextMouth = 1;
-        var num = currentMonthFirstDay + currentMonthDayCount;
-        nextMonthNum = num%7!==0 ? 7-num%7 : 0;
-        console.log(num);
+        num = currentMonthFirstDay + currentMonthDayCount;
+        nextMonthNum = num % 7 !== 0 ? 7 - num % 7 : 0;
+        // console.log(num);
         for (i = 0; i < 42; i++) {
             if (currentMonthFirstDay > -1) {
                 str += '<div class="kp-col"><span class="prov-mouth-day">' + (provMonthLastDay - currentMonthFirstDay--) + '</span></div>'
             } else if (current < currentMonthDayCount) {
-                str += '<div class="kp-col"><span class="kp-date">' + current++ + '</span></div>'
-            } else if(nextMonthNum-->0) {
-                str += '<div class="kp-col"><span class="next-mouth-day">' + nextMouth++ + '</span></div>';
-                // console.log(num<=35, num, i);
-                /*if (num<=35) {
-                    break;
+                // 当月 渲染
+                /*if (current === 10) {
+                    console.log('===================');
+                    console.log(selectTheMonth);
+                    console.log(month);
+                    console.log(selectTheMonth == month);
+                    console.log(selectTheYear);
+                    console.log(year);
+                    console.log(selectTheYear == year);
+                    console.log(selectTheDay);
+                    console.log(current);
+                    console.log(selectTheDay == current);
+                    // console.log(selectTheYear==y&&selectTheMonth==m&&selectTheDay==current);
                 }*/
+
+                if (selectTheYear == year && selectTheMonth == month && selectTheDay == current) {
+                    // console.log(123123123);
+                    str += '<div class="kp-col"><span data-type="selected" class="kp-date">' + current++ + '</span></div>';
+                }
+                if (current !== UTCDate) {
+                    str += '<div class="kp-col"><span class="kp-date">' + current++ + '</span></div>';
+                } else {
+                    str += '<div class="kp-col"><span class="kp-date kp-current">' + current++ + '</span></div>';   // 当天
+                }
+
+            } else if (nextMonthNum-- > 0) {
+                str += '<div class="kp-col"><span class="next-mouth-day">' + nextMouth++ + '</span></div>';
             }
         }
-        calendars[year+month] = str;
         return str;
-
     }
 
 
-    // console.log(new Date(2018, 10, 0).getDate());
-    container = doc.getElementsByClassName('kp-container')[0];
+    ele.addEventListener('click', function (e) {
+        if (wrapper) {
+            wrapperStyle.display = 'block';
+            container.innerHTML = drawCalendar(selectTheYear, selectTheMonth);
+            yearEle.innerHTML = selectTheYear;
+            mouthEle.innerHTML = selectTheMonth;
 
-    if (wrapper) {
-        // console.log(1);
-        // drawCalendar(y, m);
+        } else {
+            wrapper = doc.createElement('div');
+            wrapper.className = 'Kalendar-popop';
+            wrapper.innerHTML = wrapperHtml;
+            wrapperStyle = wrapper.style;
+            doc.body.appendChild(wrapper);
 
-        container.innerHTML = drawCalendar(y, m);
-        yearEle.innerHTML = y;
-        mouthEle.innerHTML = m;
-        // console.log('======================================');
-        // drawCalendar();
-        // console.log('======================================');
-        // drawCalendar(2018,11);
+            container = doc.getElementsByClassName('kp-container')[0];
+            container.innerHTML = drawCalendar(selectTheYear, selectTheMonth);
+            yearEle = doc.getElementsByClassName('kp-h-year')[0];
+            mouthEle = doc.getElementsByClassName('kp-h-month')[0];
+            yearEle.innerHTML = selectTheYear;
+            mouthEle.innerHTML = selectTheMonth;
 
+            doc.getElementsByClassName('next-month')[0].addEventListener('click', function (e) {
 
-    } else {
-        // 还没有创建
-        wrapper = doc.createElement('div');
-        wrapper.className = 'Kalendar-popop';
-        console.log(2);
-        doc.body.appendChild(wrapper);
+                if (m === 12) {
+                    m = 0;
+                    y++;
+                }
+                container.innerHTML = drawCalendar(y, ++m);
+                yearEle.innerHTML = y;
+                mouthEle.innerHTML = m;
+            }, false);
 
-    }
+            // 按钮上个月
+            doc.getElementsByClassName('prov-month')[0].addEventListener('click', function (e) {
 
+                if (m === 1) {
+                    m = 13;
+                    --y;
+                }
+                container.innerHTML = drawCalendar(y, --m);
+                yearEle.innerHTML = y;
+                mouthEle.innerHTML = m;
+            }, false);
 
-    function nextMonth() {
+            doc.getElementsByClassName('prov-year')[0].addEventListener('click', function (e) {
+                container.innerHTML = drawCalendar(--y, m);
+                yearEle.innerHTML = y;
+                mouthEle.innerHTML = m;
+            }, false);
 
-    }
+            doc.getElementsByClassName('next-year')[0].addEventListener('click', function (e) {
+                container.innerHTML = drawCalendar(++y, m);
+                yearEle.innerHTML = y;
+                mouthEle.innerHTML = m;
+            }, false);
 
-    console.log(m);
+            doc.getElementsByClassName('kp-container')[0].addEventListener('click', function (e) {
+                that = this;
+                tag = e.target;
+                if (tag.nodeName.toLowerCase() === 'span') {
+                    selectTheDay = tag.innerHTML;
+                    selectTheYear = y;
+                    selectTheMonth = m;
+                    hasSelect = that.querySelector('span[data-type="selected"]');
+                    if (hasSelect) {
+                        hasSelect.removeAttribute('data-type');
+                    }
+                    tag.setAttribute('data-type', 'selected');
+                    ele.value = y + '-' + m + '-' + selectTheDay;
+                    wrapperStyle.display = 'none';
+                }
+            }, false);
 
-    doc.getElementsByClassName('next-month')[0].addEventListener('click', function (e) {
-
-        if (m === 12) {
-            m = 0;
-            y++;
         }
-
-        var a = drawCalendar(y, ++m);
-        // console.log(m);
-        // console.log(y);
-        container.innerHTML = a;
-        yearEle.innerHTML = y;
-        mouthEle.innerHTML = m;
     }, false);
-
-    doc.getElementsByClassName('prov-month')[0].addEventListener('click', function (e) {
-
-        if (m === 1) {
-            m = 13;
-            --y;
-        }
-
-        var a = drawCalendar(y, --m);
-        // console.log(m);
-        // console.log(y);
-        container.innerHTML = a;
-        yearEle.innerHTML = y;
-        mouthEle.innerHTML = m;
-    }, false);
-
-
-    doc.getElementsByClassName('prov-year')[0].addEventListener('click', function (e) {
-        container.innerHTML = drawCalendar(--y, m);
-        yearEle.innerHTML = y;
-        mouthEle.innerHTML = m;
-    }, false);
-
-    doc.getElementsByClassName('next-year')[0].addEventListener('click', function (e) {
-        container.innerHTML = drawCalendar(++y, m);
-        yearEle.innerHTML = y;
-        mouthEle.innerHTML = m;
-    }, false);
-
 
 }
 
