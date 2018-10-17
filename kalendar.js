@@ -45,6 +45,7 @@ function Kalendar(el, option) {
         , eleOffset = ''
         , eleHeight = ''
 
+        , isShow = false
 
         , dcm = ''
         , nextMouth = 1
@@ -87,6 +88,7 @@ function Kalendar(el, option) {
         '    </div>'
     ;
 
+    ele.setAttribute('readonly', 'true');
 
     if (eleValue) {
         eleValue = eleValue.split('-');
@@ -166,8 +168,9 @@ function Kalendar(el, option) {
 
 
     ele.addEventListener('click', function (e) {
-        that = this;
+        if (isShow){return;}
 
+        that = this;
         // 求得ele元素的偏移
         eleOffset = getOffsetLeftTop(that);
         eleLeft = eleOffset[0];
@@ -181,12 +184,16 @@ function Kalendar(el, option) {
             mouthEle.innerHTML = selectTheMonth;
             wrapperStyle.left = eleLeft+'px';
             wrapperStyle.top = eleTop+eleHeight+'px';
+            isShow = true;
+
         } else {
             wrapper = doc.createElement('div');
             wrapper.className = 'Kalendar-popop';
             wrapper.innerHTML = wrapperHtml;
             wrapperStyle = wrapper.style;
             doc.body.appendChild(wrapper);
+
+            isShow = true;
 
             container = doc.getElementsByClassName('kp-container')[0];
             container.innerHTML = drawCalendar(selectTheYear, selectTheMonth);
@@ -237,6 +244,7 @@ function Kalendar(el, option) {
                 that = this;
                 tag = e.target;
                 if (tag.nodeName.toLowerCase() === 'span') {
+                    isShow = false;
                     selectTheDay = tag.innerHTML;
                     selectTheYear = y;
                     selectTheMonth = m;
@@ -248,6 +256,10 @@ function Kalendar(el, option) {
                     ele.value = y + '-' + m + '-' + selectTheDay;
                     wrapperStyle.display = 'none';
                 }
+            }, false);
+
+            doc.addEventListener('click', function (e) {
+                console.log(123);
             }, false);
 
         }
