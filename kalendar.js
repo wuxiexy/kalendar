@@ -134,21 +134,7 @@ function Kalendar(el, option) {
             if (currentMonthFirstDay > -1) {
                 str += '<div class="kp-col"><span class="prov-mouth-day">' + (provMonthLastDay - currentMonthFirstDay--) + '</span></div>'
             } else if (current < currentMonthDayCount) {
-                // 当月 渲染
-                /*if (current === 10) {
-                    console.log('===================');
-                    console.log(selectTheMonth);
-                    console.log(month);
-                    console.log(selectTheMonth == month);
-                    console.log(selectTheYear);
-                    console.log(year);
-                    console.log(selectTheYear == year);
-                    console.log(selectTheDay);
-                    console.log(current);
-                    console.log(selectTheDay == current);
-                    // console.log(selectTheYear==y&&selectTheMonth==m&&selectTheDay==current);
-                }*/
-
+                // 当月
                 if (selectTheYear == year && selectTheMonth == month && selectTheDay == current) {
                     // console.log(123123123);
                     str += '<div class="kp-col"><span data-type="selected" class="kp-date">' + current++ + '</span></div>';
@@ -158,7 +144,6 @@ function Kalendar(el, option) {
                 } else {
                     str += '<div class="kp-col"><span class="kp-date kp-current">' + current++ + '</span></div>';   // 当天
                 }
-
             } else if (nextMonthNum-- > 0) {
                 str += '<div class="kp-col"><span class="next-mouth-day">' + nextMouth++ + '</span></div>';
             }
